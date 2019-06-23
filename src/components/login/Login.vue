@@ -1,6 +1,19 @@
 <template>
-  <el-row type="flex" class="row-bg login-wrapper" justify="center" align="middle">
-    <el-col :xs="10" :sm="10" :md="10" :lg="7" :xl="7" class="login-content" min-width="320px">
+  <el-row
+    type="flex"
+    class="row-bg login-wrapper"
+    justify="center"
+    align="middle"
+  >
+    <el-col
+      :xs="10"
+      :sm="10"
+      :md="10"
+      :lg="7"
+      :xl="7"
+      class="login-content"
+      min-width="320px"
+    >
       <div>
         <el-form
           :model="loginForm"
@@ -9,14 +22,26 @@
           class="demo-loginForm"
           label-position="top"
         >
-          <el-form-item label="用户名" prop="username">
+          <el-form-item
+            label="用户名"
+            prop="username"
+          >
             <el-input v-model="loginForm.username"></el-input>
           </el-form-item>
-          <el-form-item label="密码" prop="password">
-            <el-input type="password" v-model="loginForm.password"></el-input>
+          <el-form-item
+            label="密码"
+            prop="password"
+          >
+            <el-input
+              type="password"
+              v-model="loginForm.password"
+            ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm()">登陆</el-button>
+            <el-button
+              type="primary"
+              @click="submitForm()"
+            >登陆</el-button>
             <el-button @click="resetForm()">重置</el-button>
           </el-form-item>
         </el-form>
@@ -32,8 +57,8 @@ export default {
   data() {
     return {
       loginForm: {
-        username: '',
-        password: ''
+        username: 'admin',
+        password: '123456'
       },
       rules: {
         username: [
