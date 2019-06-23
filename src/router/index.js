@@ -1,11 +1,32 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
 
 // 导入 Login 组件（注意，不要添加 .vue 后缀）
-import Login from '@/components/login/Login'
+import Login from '@/components/login/Login';
+import Home from '@/components/home/Home';
 
-Vue.use(Router)
+Vue.use(Router);
 
-export default new Router({
-  routes: [{ path: '/login', component: Login }]
-})
+const router = new Router({
+  routes: [
+    { path: '/login', component: Login },
+    { path: '/home', component: Home }
+  ]
+});
+
+// 导航卫士实现登陆拦截
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    // 如果token存在表明登陆过
+    next();
+  } else {
+    if (to.fullPath === '/login') {
+      next();
+    } else {
+      next('/login');
+    }
+  }
+});
+
+export default router;
