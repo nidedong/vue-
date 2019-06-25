@@ -64,20 +64,6 @@
               </template>
             </el-menu-item>
           </el-submenu>
-          <el-submenu index="3">
-            <template slot="title">
-              <i class="el-icon-location"></i>
-              <span>导航一</span>
-            </template>
-            <el-menu-item index="3-1">
-              <template slot="title">
-                <i class="el-icon-menu"></i>
-                <span>用户列表</span>
-              </template>
-            </el-menu-item>
-
-          </el-submenu>
-
         </el-menu>
       </el-aside>
       <el-main>
