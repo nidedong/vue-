@@ -1,6 +1,54 @@
 <div>
   <el-table :data="rolesList" style="width: 100%">
-    <el-table-column type="index" width="50"> </el-table-column>
+    <el-table-column type="expand">
+      <template slot-scope="scope">
+        <el-row v-if="scope.row.children.length === 0">
+          <el-col>暂无权限，请分配</el-col>
+        </el-row>
+        <el-row
+          class="level1-row"
+          v-else
+          v-for="level1 in scope.row.children"
+          :key="level1.id"
+        >
+          <el-col :span="4">
+            <el-tag closable @close="delRoleRight(scope.row.id, level1.id)">
+              {{ level1.authName }}
+            </el-tag>
+            <i class="el-icon-arrow-right"></i>
+          </el-col>
+          <el-col :span="20">
+            <el-row
+              v-for="level2 in level1.children"
+              :key="level2.id"
+              class="level2-row"
+            >
+              <el-col :span="4">
+                <el-tag
+                  closable
+                  type="success"
+                  @close="delRoleRight(scope.row.id, level2.id)"
+                  >{{ level2.authName }}</el-tag
+                >
+                <i class="el-icon-arrow-right"></i>
+              </el-col>
+              <el-col :span="20">
+                <span v-for="level3 in level2.children" :key="level3.id">
+                  <el-tag
+                    closable
+                    type="warning"
+                    class="level3-row"
+                    @close="delRoleRight(scope.row.id, level3.id)"
+                  >
+                    {{ level3.authName }}
+                  </el-tag>
+                </span>
+              </el-col>
+            </el-row>
+          </el-col>
+        </el-row>
+      </template>
+    </el-table-column>
     <el-table-column prop="roleName" label="角色名称" width="180">
     </el-table-column>
     <el-table-column prop="roleDesc" label="描述" width="180">
@@ -21,13 +69,19 @@
           plain
           @click="delRole(scope.row)"
         ></el-button>
-        <el-button type="success" icon="el-icon-check" size="mini" plain
-          >分配角色</el-button
+        <el-button
+          type="success"
+          icon="el-icon-check"
+          size="mini"
+          plain
+          @click="assignDialog(scope.row)"
+          >分配权限</el-button
         >
       </template>
     </el-table-column>
   </el-table>
 
+  <!-- 编辑角色对话框 -->
   <el-dialog title="修改角色" :visible.sync="editRoleVisible">
     <el-form :model="editRoleForm">
       <el-form-item label="角色名称" :label-width="formLabelWidth">
@@ -40,6 +94,25 @@
     <div slot="footer" class="dialog-footer">
       <el-button @click="editRoleVisible = false">取 消</el-button>
       <el-button type="primary" @click="editRole">确 定</el-button>
+    </div>
+  </el-dialog>
+
+  <!-- 分配权限对话框 -->
+  <el-dialog title="分配权限" :visible.sync="assignRightShow">
+    <!-- 树形控件 -->
+    <el-tree
+      :data="rightsTreeList"
+      show-checkbox
+      default-expand-all
+      node-key="id"
+      ref="tree"
+      highlight-current
+      :props="defaultProps"
+    >
+    </el-tree>
+    <div slot="footer" class="dialog-footer">
+      <el-button @click="assignRightShow = false">取 消</el-button>
+      <el-button type="primary" @click="assignRights">确 定</el-button>
     </div>
   </el-dialog>
 </div>
