@@ -2,37 +2,19 @@
   <el-container>
     <el-header>
       <el-row>
-        <el-col
-          :span="8"
-          class="title"
-          :offset="8"
-        >
+        <el-col :span="8" class="title" :offset="8">
           <h1>电商后台管理系统</h1>
         </el-col>
-        <el-col
-          :span="8"
-          class="logout"
-        >
+        <el-col :span="8" class="logout">
           <span>欢迎使用</span>
-          <a
-            href="javascript:;"
-            @click="logout"
-          >退出</a>
+          <a href="javascript:;" @click="logout">退出</a>
         </el-col>
       </el-row>
     </el-header>
     <el-container>
       <el-aside width="200px">
-        <el-menu
-          default-active="1-1"
-          class="el-menu-vertical-demo"
-          @open="handleOpen"
-          @close="handleClose"
-          background-color="#545c64"
-          text-color="#fff"
-          active-text-color="#ffd04b"
-          :router="true"
-        >
+        <el-menu default-active="1-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+          background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" :router="true">
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-location"></i>
@@ -51,13 +33,13 @@
               <i class="el-icon-location"></i>
               <span>权限管理</span>
             </template>
-            <el-menu-item index="2-1">
+            <el-menu-item index="/home/roles">
               <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span>角色列表</span>
               </template>
             </el-menu-item>
-            <el-menu-item index="2-2">
+            <el-menu-item index="/home/rights">
               <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span>权限列表</span>
